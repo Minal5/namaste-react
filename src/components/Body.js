@@ -1,7 +1,8 @@
 import RestaurantCard from "./RestaurantCard";
-import { resList } from "../utils/mockData";
 import { useEffect, useState } from "react";
+import { ALL_RESTAURANTS } from "../utils/constants";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   //  Local State Variable - Super Powerful Variable
@@ -18,7 +19,7 @@ const Body = () => {
   },[]);
 
   const fetchData = async ()=>{
-    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.949756&lng=77.6997624&page_type=DESKTOP_WEB_LISTING");
+    const data = await fetch(ALL_RESTAURANTS);
     const json = await data.json();
     console.log(json);
     //  Optional Chaining
@@ -26,12 +27,7 @@ const Body = () => {
     setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards)
   }
 
-  //  Conditional Rendering
-  // if(listOfRestaurants.length === 0){
-  //   return <Shimmer/>
-  // }
-
-    return listOfRestaurants.length ===0 ? <Shimmer/> : (
+    return listOfRestaurants.length === 0 ? <Shimmer/> : (
         <div className="body">
           <div className="filter">
             <div className="search">
@@ -58,7 +54,9 @@ const Body = () => {
           <div className="res-container">
               {
                 filteredRestaurant.map((restaurant) => (
-                <RestaurantCard key ={restaurant.data.id} resData = {restaurant}/>
+                <Link key ={restaurant.data.id}
+                  to={"/restaurant/"+restaurant.data.id }
+                ><RestaurantCard  resData = {restaurant}/></Link>
                 ))
               }
                 
