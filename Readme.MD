@@ -1,7 +1,5 @@
 # Namaste React
 
-
-
 # Parcel
 - Dev Build
 - Local Server
@@ -20,3 +18,12 @@
 - HTTPs
 - Tree Shaking - remove unused code 
 - Different dev and prod bundles
+
+#   Two types of Import/Export
+ - Default Import/Export
+ export default Component;
+ import Component from "path" 
+
+ - Named Import/Export
+ export const Component;
+ import { Component } from "path"
